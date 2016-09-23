@@ -1,0 +1,86 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        button {
+            font-family: monospace;
+            font-size: 54px;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+    <title>react-0.2</title>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+</head>
+<body>
+    <div id="react-app"></div>
+    <script type="text/babel">
+        var Demo = React.createClass({
+            getDefaultProps: function () {
+                console.log('getDefaultProps');
+                return {
+                    initialTick: 0
+                }
+            },
+            getInitialState: function () {
+                console.log('getInitialState');
+                var self = this;
+                return {
+                    tick: self.props.initialTick
+                }
+            },
+            componentWillMount: function () {
+                console.log('componentWillMount');
+            },
+            componentDidMount: function () {
+                console.log('componentDidMount');
+                var self = this;
+                self.interval = setInterval(function () {
+                    self.setState({tick: self.state.tick + 1});
+                }, 1000);
+            },
+            componentWillReceiveProps: function (nextProps) {
+                console.log('componentWillReceiveProps:' + JSON.stringify(nextProps));
+            },
+            shouldComponentUpdate: function (nextProps, nextState) {
+                console.log('shouldComponentUpdate:' + JSON.stringify(nextProps) + ':' + JSON.stringify(nextProps));
+                return true;
+            },
+            componentWillUpdate: function (nextProps, nextState) {
+                console.log('componentWillUpdate:' + JSON.stringify(nextProps) + ':' + JSON.stringify(nextProps));
+            },
+            componentDidUpdate: function (prevProps, prevState) {
+                console.log('componentDidUpdate:' + JSON.stringify(prevProps) + ':' + JSON.stringify(prevState));
+            },
+            componentWillUnmount: function () {
+                console.log('componentWillUnmount');
+                var self = this;
+                clearInterval(self.interval);
+            },
+            handleClick: function (event) {
+                var self = this;
+                if(self.interval != 0) {
+                    clearInterval(self.interval);
+                    self.interval = 0;
+                } else {
+                    self.interval = setInterval(function () {
+                        self.setState({tick: self.state.tick + 1});
+                    }, 1000);
+                }
+            },
+            render: function () {
+                var self = this;
+                return (
+                    <button className="red" style={{fontSize: '72px'}} onClick={self.handleClick}>START FROM {self.state.tick}</button>
+                );
+            }
+        });
+
+        ReactDOM.render(<Demo initialTick={3} />, document.getElementById('react-app'));
+    </script>
+</body>
+</html>
