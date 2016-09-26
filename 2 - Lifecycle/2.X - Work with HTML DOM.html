@@ -11,7 +11,7 @@
             color: red;
         }
     </style>
-    <title>react-2.0</title>
+    <title>react-2.X</title>
     <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
     <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
@@ -41,7 +41,7 @@
                 var self = this;
                 self.interval = setInterval(function () {
                     self.setState({tick: self.state.tick + 1});
-                }, 1000);
+                }, self.refs.delay ? parseInt(self.refs.delay.value) : 1000);
             },
             componentWillReceiveProps: function (nextProps) {
                 console.log('componentWillReceiveProps:' + JSON.stringify(nextProps));
@@ -69,13 +69,16 @@
                 } else {
                     self.interval = setInterval(function () {
                         self.setState({tick: self.state.tick + 1});
-                    }, 1000);
+                    }, self.refs.delay ? parseInt(self.refs.delay.value) : 1000);
                 }
             },
             render: function () {
                 var self = this;
                 return (
-                    <button className="red" style={{fontSize: '72px'}} onClick={self.handleClick}>START FROM {self.state.tick}</button>
+                    <div>
+                        <input name="tick" style={{fontSize: '72px'}} ref="delay" defaultValue="1000" />
+                        <button className="red" style={{fontSize: '72px'}} onClick={self.handleClick}>START FROM {self.state.tick}</button>
+                    </div>
                 );
             }
         });
