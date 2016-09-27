@@ -1,0 +1,25 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        ul, li {
+            font-family: monospace;
+            font-size: 54px;
+        }
+    </style>
+    <title>react-3</title>
+</head>
+<body>
+    <div id="react-app"></div>
+    <script src="bower_components/esl/src/esl.js" data-main="js/main"></script>
+    <script>
+        require.config({
+            paths: {
+                "react": "./bower_components/react/react.min",
+                "react-dom": "./bower_components/react/react-dom.min"
+            }
+        });
+    </script>
+</body>
+</html>

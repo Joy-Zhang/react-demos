@@ -1,0 +1,9 @@
+{
+  "name": "Modular ReactJS Demo",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "esl": "^2.1.4",
+    "react": "^15.3.2"
+  }
+}
